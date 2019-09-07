@@ -24,7 +24,7 @@ def server_work():
     return render_template('main.html')
 
 @app.route('/waves', methods=['GET', 'POST'])
-def server_work():
+def waves():
     if request.method == 'POST':
         pass
 
