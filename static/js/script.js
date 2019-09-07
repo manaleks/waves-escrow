@@ -8,14 +8,14 @@
 $(() => {
     $("#signupBtn").click(() => {
         $("#signForm").animate({
-            height: [ "550px", "swing" ]
+            height: ["480px", "swing"]
         }, 300, function () {
             // Animation complete.
         });
         $(".slideLeftToRight").hide("slide", {direction: "left"}, 800, () => {
 
         });
-        
+
         $(".slideRightToLeft").show("slide", {direction: "right"}, 800, () => {
             $(".slideRightToLeft").css("position", "static");
         });
@@ -41,11 +41,33 @@ $(() => {
                     $("#publicKey").val(state.account.publicKey);
                     $("#userAddress").val(state.account.address);
                     //$("#userBalance").val(state.account.balance.available);
-                    
+
                 }).catch(error => {
             console.error(error);
         })
 
 
     })
+    $('#signup').submit(event => {
+        $.ajax({
+            data: $(this).serialize(),
+            type: 'POST',
+            url: '/signup'
+        })
+                .done((data) => {
+                    console.log(data)
+                });
+        event.preventDefault();
+    });
+    $('#signin').submit(event => {
+        $.ajax({
+            data: $(this).serialize(),
+            type: 'POST',
+            url: '/signin'
+        })
+                .done((data) => {
+                    console.log(data)
+                });
+        event.preventDefault();
+    });
 })

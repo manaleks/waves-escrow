@@ -9,10 +9,10 @@ and open the template in the editor.
         <title>Diversity.Hack</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" href="css/jquery-ui.min.css" />
-        <link rel="stylesheet" href="fontawesome/css/all.min.css" />
-        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     </head>
     <body>
         <div class="container" id="signForm">
@@ -48,11 +48,11 @@ and open the template in the editor.
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Адрес электронной почты</label>
-                        <input type="email" class="form-control" id="signupEmail" aria-describedby="emailHelp" placeholder="Введите адрес электронной почты">
+                        <input type="email" class="form-control" name="email" id="signupEmail" aria-describedby="emailHelp" placeholder="Введите адрес электронной почты">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Пароль</label>
-                        <input type="password" class="form-control" id="signupPassword" placeholder="Пароль">
+                        <input type="password" name="password" class="form-control" id="signupPassword" placeholder="Пароль">
                     </div>
                     <div class="form-group">
                         <div class="form-check">
@@ -63,12 +63,10 @@ and open the template in the editor.
                         </div>
                     </div>
                     <fieldset disabled class="form-group">
-                        <input type="text" id="userName" class="form-control" name="name" value="">
-                        <input type="text" id="publicKey" name="name" class="form-control" value="">
-                        <input type="text" id="userAddress" name="name" class="form-control" value="">
+                        <input type="text" id="publicKey" name="address" class="form-control" placeholder="Public Adress" value="">
                     </fieldset>
                     <div class="form-group">
-                        <a href="#" class="btn btn-primary" id="auth">Авторизовать WAVES Access</a>
+                        <a href="#" class="btn btn-primary" id="auth">Авторизовать WAVES</a>
                         <button class="btn btn-primary" type="submit">Submit form</button>
                     </div>
 
@@ -79,9 +77,9 @@ and open the template in the editor.
 
 
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>
-        <script src="js/script.js"></script>
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </body>
 </html>

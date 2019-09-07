@@ -2,3 +2,5 @@ venv
 *.pyc
 .env
 db.sqlite3
+/templates/nbproject/private/
+/nbproject/private/
