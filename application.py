@@ -54,7 +54,7 @@ deals = [{
     'status': 1
     }
 ]
-nextId = 0
+nextId = len(users)
 
 def verifySessionId():
     global nextId
