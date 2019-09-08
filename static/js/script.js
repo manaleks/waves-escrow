@@ -92,7 +92,7 @@ $(() => {
                 });
         event.preventDefault();
     });
-       $('#_deal').submit(event => {
+       $('#deal-form').submit(event => {
 
         event.preventDefault();
         WavesKeeper.signAndPublishTransaction({
