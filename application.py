@@ -101,9 +101,10 @@ def index_work():
 
 @app.route('/new', methods=['GET', 'POST'])
 def new():
+    global users
     if request.method == 'POST':
         pass
-    return render_template('new.html', user = getUserById(verifySessionId()), deals = deals)
+    return render_template('new.html', user = getUserById(verifySessionId()), users = users)
 
 
 @app.route('/viewdeal/<int:dealid>', methods=['GET', 'POST'])
