@@ -92,7 +92,7 @@ def server_work():
             sender = getUserById(deal['sender'])
             deal['sender_name'] = sender['firstname'] + ' ' + sender['lastname']
             _deals.append(deal)
-        return render_template('index.html', deals = _deals)
+        return render_template('index.html', deals = _deals, user = getUserById(verifySessionId()))
     else:
         return render_template('signup.html')
 
@@ -106,7 +106,7 @@ def index_work():
         sender = getUserById(deal['sender'])
         deal['sender_name'] = sender['firstname'] + ' ' + sender['lastname']
         _deals.append(deal)
-    return render_template('index.html', deals = _deals)
+    return render_template('index.html', deals = _deals, user = getUserById(verifySessionId()))
 
 @app.route('/new', methods=['GET', 'POST'])
 def new():
