@@ -50,23 +50,30 @@ $(() => {
     })
     $('#signup').submit(event => {
         $.ajax({
-            data: $(this).serialize(),
+            data: $('#signup').serialize(),
             type: 'POST',
             url: '/signup'
         })
                 .done((data) => {
-                    console.log(data)
+                    console.log(data);
+                    if (data.success == "1") {
+                        window.location = "/home";
+                    }
                 });
         event.preventDefault();
     });
     $('#signin').submit(event => {
         $.ajax({
-            data: $(this).serialize(),
+            data: $('#signup').serialize(),
             type: 'POST',
-            url: '/signin'
+            url: '/signin',
+            dataType: 'json'
         })
                 .done((data) => {
-                    console.log(data)
+                    console.log(data);
+                    if (data.success == "1") {
+                        window.location = "/home";
+                    }
                 });
         event.preventDefault();
     });

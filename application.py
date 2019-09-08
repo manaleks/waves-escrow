@@ -33,6 +33,11 @@ def server_work():
     if request.method == 'POST':
         pass
     return render_template('signup.html')
+@app.route('/home', methods=['GET', 'POST'])
+def index_work():
+    if request.method == 'POST':
+        pass
+    return render_template('index.html')
 
 @app.route('/waves', methods=['GET', 'POST'])
 def waves():
@@ -77,19 +82,11 @@ def api_users(userid):
 
 
 
-@app.route("/login", methods = ['POST'])
+@app.route("/signin", methods = ['POST'])
 def Authenticate():
     username = request.args.get('email')
     password = request.args.get('password')
-    if username and password:
-        password = hashlib.md5(password.encode()).hexdigest()
-        cursor = mysql.connect().cursor()
-        cursor.execute("SELECT * from user where email='" + username + "' and pass='" + password + "'")
-        data = cursor.fetchone()
-        if data is None:
-         return "Username or Password is wrong"
-    else:
-     return "Logged in successfully"
+    return jsonify({'success':1})
 
 
 @app.route("/signup", methods = ['POST'])
@@ -97,13 +94,7 @@ def Sigunp():
     username = request.args.get('email')
     address = request.args.get('adress')
     password = request.args.get('password')
-    if username and address and password:
-        password = hashlib.md5(password.encode()).hexdigest()
-        cursor = mysql.connect().cursor()
-        cursor.execute("INSERT INTO user VALUES(NULL,'" + username + "','" + address + "','" + password + "',NOW()")
-        mysql.connect().commit()
-    else:
-        return jsonify({'error':'fill all the form'})
+    return jsonify({'success':1})
 
 
 
