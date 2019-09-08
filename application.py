@@ -216,7 +216,7 @@ def Sigunp():
     'publicKey': address
     })
     print("User id[" + str(verifySessionId()) + "]")
-    session['user'] = users[verifySessionId()]
+    session['user'] = getUserById(verifySessionId())
     return jsonify({'success':1})
 
 
