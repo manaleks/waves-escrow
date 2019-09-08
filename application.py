@@ -3,7 +3,7 @@ import sys
 
 from flask import Flask
 from flask import Response
-from flask import request
+from flask import request, session, abort
 from flask import redirect
 from flask import render_template
 from flask import jsonify
@@ -32,7 +32,10 @@ mysql.init_app(app)
 def server_work():
     if request.method == 'POST':
         pass
-    return render_template('signup.html')
+    if 'user' in session.keys():
+        return render_template('index.html')
+    else:
+        return render_template('signup.html')
 @app.route('/home', methods=['GET', 'POST'])
 def index_work():
     if request.method == 'POST':
@@ -86,6 +89,7 @@ def api_users(userid):
 def Authenticate():
     username = request.args.get('email')
     password = request.args.get('password')
+    session['user'] = '{id : 1}'
     return jsonify({'success':1})
 
 
@@ -94,14 +98,11 @@ def Sigunp():
     username = request.args.get('email')
     address = request.args.get('adress')
     password = request.args.get('password')
+    session['user'] = '{id : 1}'
     return jsonify({'success':1})
 
 
-
-
-
-
-
 if __name__ == "__main__":
+    app.secret_key = os.urandom(12)
     app.run(debug=True, port=5000)
 
