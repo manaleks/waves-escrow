@@ -69,6 +69,19 @@ def verifySessionId():
     sessionId = session.get('userId', None)
     return sessionId
 
+def getUser():
+    global users
+    for user in users:
+        if user['id'] == verifySessionId():
+            return user
+    return None
+
+def getUserById(id):
+    global users
+    for user in users:
+        if user['id'] == verifySessionId():
+            return user
+    return None
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -77,7 +90,7 @@ def server_work():
     if request.method == 'POST':
         pass
     if 'user' in session.keys():
-        return render_template('index.html', deals = deals)
+        return render_template('index.html', deals = deals, user = getUser())
     else:
         return render_template('signup.html')
 @app.route('/home', methods=['GET', 'POST'])
@@ -85,12 +98,13 @@ def index_work():
     global deals
     if request.method == 'POST':
         pass
-    return render_template('index.html', deals = deals)
+    return render_template('index.html', deals = deals, user = getUser())
 @app.route('/new', methods=['GET', 'POST'])
 def new():
+    global users
     if request.method == 'POST':
         pass
-    return render_template('new.html')
+    return render_template('new.html', user = getUser(), users = users)
 
 @app.route('/viewdeal/<int:dealid>', methods=['GET', 'POST'])
 def viewdeal(dealid):
@@ -99,7 +113,7 @@ def viewdeal(dealid):
         pass
     for deal in deals:
         if dealid == deal['id']:
-            return render_template('viewdeal.html', deal = deal)
+            return render_template('viewdeal.html', deal = deal, user = getUser())
     else:
         return not_found()
 
@@ -184,30 +198,26 @@ def Authenticate():
     for user in users:
         if user['email'] == email and user['password'] == password:
             session['user'] = user
-            userId = user['id']
             return jsonify({'success':1})
     return jsonify({'success':0, 'message': "Failed"})
 
 @app.route("/signup", methods = ['POST'])
 def Sigunp():
     global users
-    global userId
     firstname = request.form['firstname']
     lastname = request.form['lastname']
     email = request.form['email']
     password = request.form['password']
     address = request.form['address']
-    userId = len(users) + 1
     users.append({
-        'id': userId,
+        'id': verifySessionId(),
     'firstname': firstname, 
     'lastname': lastname, 
     'email': email, 
     'password': password, 
     'publicKey': address
     })
-    user_Id = verifySessionId()
-    print("User id[" + str(userId) + "]")
+    print("User id[" + str(verifySessionId()) + "]")
     session['user'] = '{id : 1}'
     return jsonify({'success':1})
 
