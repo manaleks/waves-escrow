@@ -50,14 +50,16 @@ and open the template in the editor.
                             Введите название...
                         </p>
                         <div class="form-group">
-                            <textarea placeholder="Введите условия договора..." class="form-control _special" name="description"></textarea>
+                            <textarea placeholder="Введите условия договора..." class="form-control _special" name="description">
+                                {{ deal.description }}
+                            </textarea>
                         </div>
                         <div class="form-row">
                             <div class="img_box">
                                 <img class="_img" src="{{ url_for('static', filename='img/coin.png') }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="text" name="amount" class="form-control _special" placeholder="Введите сумму договора..." />
+                                <input type="text" name="amount" class="form-control _special" value="{{ deal.amount }}" placeholder="Введите сумму договора..." />
                             </div>
                             
 
@@ -67,7 +69,7 @@ and open the template in the editor.
                                 <img class="_img" src="{{ url_for('static', filename='img/user2.png') }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="text" name="receiver" class="form-control _special" placeholder="Введите имя контрагента..." />
+                                <input type="text" name="receiver" class="form-control _special" value="{{ deal.receiver }}" placeholder="Введите имя контрагента..." />
                             </div>
                             
                         </div>
@@ -76,11 +78,11 @@ and open the template in the editor.
                                 <img class="_img" src="{{ url_for('static', filename='img/clock-circular-outline.png') }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                 <input type="text" name="deadline" class="form-control _special" placeholder="Установите дедлайн..." />
+                                 <input type="text" name="deadline" class="form-control _special" value="{{ deal.deadline }}" placeholder="Установите дедлайн..." />
                             </div>
                            
                         </div>
-                        <button type="submit" class="btn btn-primary" id="save">Сохранить</button>
+                        <button type="submit" class="btn btn-primary" id="save">Согласовать</button>
                     </form>
                 </div>
             </div>
@@ -88,5 +90,11 @@ and open the template in the editor.
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <script>
+            var dealId = '{{ deal.id }}';
+            var dealDeadline = '{{ deal.deadline }}';
+            var dealAmount = '{{ deal.amount }}';
+            var dealReceiver = '{{ deal.receiver }}';
+        </script>
     </body>
 </html>

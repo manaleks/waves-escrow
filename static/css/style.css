@@ -50,6 +50,9 @@ and open the template in the editor.
 ul.deals-list{
     list-style: none;
 }
+li.deal-item a{
+    color: white;
+}
 li.deal-item{
     background: blueviolet;
     margin-bottom: 10px;

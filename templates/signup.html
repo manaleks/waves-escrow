@@ -38,20 +38,20 @@ and open the template in the editor.
                 <form class="form" method="post" id="signup">
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label for="validationDefault01">Имя</label>
-                            <input type="text" class="form-control" id="validationDefault01" placeholder="Имя" value="Mark" required>
+                            <label for="firstnameInput">Имя</label>
+                            <input type="text" name="firstname" class="form-control" id="firstnameInput" placeholder="Имя" value="Mark" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="validationDefault02">Фамилия</label>
-                            <input type="text" class="form-control" id="validationDefault02" placeholder="Фамилия" value="Otto" required>
+                            <label for="lastnameInput">Фамилия</label>
+                            <input type="text" name="lastname" class="form-control" id="lastnameInput" placeholder="Фамилия" value="Otto" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Адрес электронной почты</label>
+                        <label for="signupEmail">Адрес электронной почты</label>
                         <input type="email" class="form-control" name="email" id="signupEmail" aria-describedby="emailHelp" placeholder="Введите адрес электронной почты">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Пароль</label>
+                        <label for="signupPassword">Пароль</label>
                         <input type="password" name="password" class="form-control" id="signupPassword" placeholder="Пароль">
                     </div>
                     <div class="form-group">
@@ -62,9 +62,7 @@ and open the template in the editor.
                             </label>
                         </div>
                     </div>
-                    <fieldset disabled class="form-group">
-                        <input type="text" id="publicKey" name="address" class="form-control" placeholder="Public Adress" value="">
-                    </fieldset>
+                    <input type="text" id="publicKey" name="address" class="form-control" placeholder="Public Adress" value="">
                     <div class="form-group">
                         <a href="#" class="btn btn-primary" id="auth">Авторизовать WAVES</a>
                         <button class="btn btn-primary" type="submit">Submit form</button>

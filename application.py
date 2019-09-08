@@ -19,34 +19,108 @@ import pywaves as pw
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
 app.config['SESSION_TYPE'] = 'filesystem'
-# SERV
+
+users = [{'id': 1,
+    'firstname': "Default", 
+    'lastname': "User", 
+    'email': "mail@user.com", 
+    'password': "pass", 
+    'publicKey': "09HGUhhkjjk98098"
+    },
+    {'id': 2,
+    'firstname': "Default2", 
+    'lastname': "User2", 
+    'email': "mail2@user.com", 
+    'password': "pass", 
+    'publicKey': "09HGUhhkjjk98098"
+    },
+]
+deals = [{
+    'id': 1,
+    'sender': 1, 
+    'receiver': 2,
+    'deadline':'name..',
+    'description':'condition',
+    'amount':10000000, 
+    'status': 1
+    },
+    {
+    'id': 2,
+    'sender': 1, 
+    'receiver': 2,
+    'deadline':'name..',
+    'description':'condition',
+    'amount':10000000, 
+    'status': 1
+    }
+]
+nextId = 0
+userId = 0
+
+def verifySessionId():
+    global nextId
+    if not 'userId' in session:
+        session['userId'] = nextId
+        nextId += 1
+        sessionId = session['userId']
+        print ("set userid[" + str(session['userId']) + "]")
+    else:
+        print ("using already set userid[" + str(session['userId']) + "]")
+    sessionId = session.get('userId', None)
+    return sessionId
+
+
+
 @app.route('/', methods=['GET', 'POST'])
 def server_work():
+    global deals
     if request.method == 'POST':
         pass
     if 'user' in session.keys():
-        return render_template('index.html')
+        return render_template('index.html', deals = deals)
     else:
         return render_template('signup.html')
 @app.route('/home', methods=['GET', 'POST'])
 def index_work():
+    global deals
     if request.method == 'POST':
         pass
-    return render_template('index.html')
+    return render_template('index.html', deals = deals)
 @app.route('/new', methods=['GET', 'POST'])
 def new():
     if request.method == 'POST':
         pass
     return render_template('new.html')
 
+@app.route('/viewdeal/<int:dealid>', methods=['GET', 'POST'])
+def viewdeal(dealid):
+    global deals
+    if request.method == 'POST':
+        pass
+    for deal in deals:
+        if dealid == deal['id']:
+            return render_template('viewdeal.html', deal = deal)
+    else:
+        return not_found()
+
 #Сделка ... 
 @app.route('/newdeal', methods=['POST'])
 def newdeal():
-    description = request.args.get('description')
-    amount = request.args.get('amount')
-    receiver = request.args.get('receiver')
-    deadline = request.args.get('deadline')
-    deals['user'] = '{id : 1}'
+    global userId
+    global deals
+    description = request.form['description']
+    amount = request.form['amount']
+    receiver = request.form['receiver']
+    deadline = request.form['deadline']
+    deals.append({
+    'id': len(deals) + 1,
+    'sender': userId, 
+    'receiver': receiver,
+    'deadline':deadline,
+    'description': description,
+    'amount':amount, 
+    'status': 1
+    })
     return jsonify({'success':1})
 
 @app.route('/waves', methods=['GET', 'POST'])
@@ -83,28 +157,57 @@ def not_found(error=None):
 
 @app.route('/users/<userid>', methods = ['GET'])
 def api_users(userid):
-    users = {'1':'john', '2':'steve', '3':'bill'}
-    
+    global users 
     if userid in users:
         return jsonify({userid:users[userid]})
     else:
         return not_found()
 
+@app.route('/deal/<dealid>', methods = ['GET'])
+def api_deals(dealid):
+    global deals
+    if dealid in deals:
+        return jsonify({dealid:deals[dealid]})
+    else:
+        return not_found()
 
 
 @app.route("/signin", methods = ['POST'])
 def Authenticate():
-    username = request.args.get('email')
-    password = request.args.get('password')
-    session['user'] = '{id : 1}'
-    return jsonify({'success':1})
-
+    global userId
+    global users
+    email = request.form['email']
+    password = request.form['password']
+    userId = verifySessionId()
+    print("User id[" + str(userId) + "]")
+    
+    for user in users:
+        if user['email'] == email and user['password'] == password:
+            session['user'] = user
+            userId = user['id']
+            return jsonify({'success':1})
+    return jsonify({'success':0, 'message': "Failed"})
 
 @app.route("/signup", methods = ['POST'])
 def Sigunp():
-    username = request.args.get('email')
-    address = request.args.get('adress')
-    password = request.args.get('password')
+    global users
+    global userId
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
+    email = request.form['email']
+    password = request.form['password']
+    address = request.form['address']
+    userId = len(users) + 1
+    users.append({
+        'id': userId,
+    'firstname': firstname, 
+    'lastname': lastname, 
+    'email': email, 
+    'password': password, 
+    'publicKey': address
+    })
+    user_Id = verifySessionId()
+    print("User id[" + str(userId) + "]")
     session['user'] = '{id : 1}'
     return jsonify({'success':1})
 
