@@ -69,6 +69,12 @@ def verifySessionId():
     sessionId = session.get('userId', None)
     return sessionId
 
+@app.route('/home_owner', methods=['GET', 'POST'])
+def home_owner():
+    if request.method == 'POST':
+        return render_template('index.html', deals = deals)
+    else:
+        return render_template('home_owner.html')
 
 
 @app.route('/', methods=['GET', 'POST'])

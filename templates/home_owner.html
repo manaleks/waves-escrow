@@ -32,14 +32,6 @@ and open the template in the editor.
                             <a class="nav-link" href="#">TRANSACTIONS</a>
                         </li>
                     </ul>
-                    
-                    <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <form class="form" method="post" id="home_owner">
-                            <button type="submit" class="btn btn-primary" style = 'background: gray;' id="save">Присвоить квартиру</button>
-                        </form>
-                    </div>
-
-
                     <div class="my-2 my-lg-0">
                         <div class="nav-item">
                             <span class="text-light">PROFILE <img style="width: 42px; height: 42px; background: white; border-radius: 25px; margin: 0; padding: 0;" src="{{ url_for('static', filename='img/user2.png') }}"></span>
@@ -49,76 +41,20 @@ and open the template in the editor.
             </nav>
         </header>
         <div class="container">
-            <div class="row">
-                <div class="col-8">
-                    <div class="jumbotron">
-                        <h1 class="display-4">Операции</h1>
-                        <div class="container">
-                            <a href="/new">
-                                <div class="deal">
-                                    <span><i class="fa fa-plus"></i> создать новую</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <ul class="deals-list">
-                        <li class="deal-item">
-                            <div class="">
-                                <h3 class="turned">В процессе</h3>
-                                <div class="pending">
-                                    Сделка 1<br>
-                                    Покупка квартиры
-                                </div>
-                            </div>
-
-                        </li>
-                        {% for deal in deals %} 
-
-                        <li class="deal-item">
-                            <a href="/viewdeal/{{ deal.id }}">
-                                <div class="">
-                                    <h3 class="turned">В процессе</h3>
-                                    <div class="pending">
-                                        {{ deal.sender }}<br>
-                                        {{ deal.amount }} 
-                                    </div>
-                                </div>
-                            </a>
-
-
-                        </li>
-
-                        {% endfor %}
-                        <li class="deal-item empty">
-                            <div class="vertical">
-                                пусто
-                            </div>
-                        </li>
-                        <li class="deal-item empty">
-                            <div class="vertical">
-                                пусто
-                            </div>
-                        </li>
-
-                    </ul>
+            <div class="container-fuild">
+                <div class="jumbotron">
+                    <form class="form" method="post" id="deal">
+                        <button type="submit" class="btn btn-primary" id="save">Присвоить квартиру</button>
+                    </form>
                 </div>
             </div>
-
         </div>
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
         <script>
-
-
-var deals = "";
-        </script>
-
-
-<script>
-$("#home_owner").submit(event =>{
+        
+        $("#deal").submit(event =>{
             event.preventDefault()
+            
             WavesKeeper.signAndPublishTransaction({
         type: 16,
         data: {
@@ -139,12 +75,15 @@ $("#home_owner").submit(event =>{
                 }
         }).then((tx) => {
                 console.log("Ура! Я выполнил скрипт!!!");
-                //window.location = "/home"
+                window.location = "/home"
         }).catch((error) => {
                 console.error("Что-то пошло не так", error);
         });
-            
+
+        
         });
-    </script>
+        </script>
+
+
     </body>
 </html>
