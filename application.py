@@ -127,8 +127,6 @@ def viewdeal(dealid):
     for deal in deals:
         if dealid == deal['id']:
             return render_template('viewdeal.html', deal = deal, user = getUserById(verifySessionId()), address = getUserById(deal['sender'])['publicKey'])
-    else:
-        return not_found()
 
 #Сделка ... 
 @app.route('/newdeal', methods=['POST'])
