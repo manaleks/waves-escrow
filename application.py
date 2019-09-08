@@ -103,7 +103,7 @@ def index_work():
 def new():
     if request.method == 'POST':
         pass
-    return render_template('new.html')
+    return render_template('new.html', user = getUserById(verifySessionId()), deals = deals)
 
 
 @app.route('/viewdeal/<int:dealid>', methods=['GET', 'POST'])

@@ -20,7 +20,7 @@ and open the template in the editor.
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <a class="navbar-brand" href="/">
+                    <a class="navbar-brand" href="#">
                         <i class="fas fa-piggy-bank"></i>
                         Waves.Escrow
                     </a>
@@ -34,7 +34,7 @@ and open the template in the editor.
                     </ul>
                     <div class="my-2 my-lg-0">
                         <div class="nav-item">
-                            <span class="text-light">PROFILE <img style="width: 42px; height: 42px; background: white; border-radius: 25px; margin: 0; padding: 0;" src="{{ url_for('static', filename='img/user2.png') }}"></span>
+                            <span class="text-light">{{ user.firstname }} {{ user.lastname }} <img style="width: 42px; height: 42px; background: white; border-radius: 25px; margin: 0; padding: 0;" src="{{ url_for('static', filename='img/user2.png') }}"></span>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@ and open the template in the editor.
                             <div class="col-md-6 mb-3">
                                 <input type="text" name="amount" class="form-control _special" placeholder="Введите сумму договора..." />
                             </div>
-                            
+
 
                         </div>
                         <div class="form-row">
@@ -67,18 +67,25 @@ and open the template in the editor.
                                 <img class="_img" src="{{ url_for('static', filename='img/user2.png') }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="text" name="receiver" class="form-control _special" placeholder="Введите имя контрагента..." />
+                                <select name="receiver" class="form-control _special">
+                                    <option value="">Введите имя контрагента...</option>
+                                    {% for user in users %} 
+
+                                    <option value="{{ user.id }}">{{ user.firstname }} {{ user.lastname }}</option>
+
+                                    {% endfor %}
+                                </select>
                             </div>
-                            
+
                         </div>
                         <div class="form-row">
                             <div class="img_box">
                                 <img class="_img" src="{{ url_for('static', filename='img/clock-circular-outline.png') }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                 <input type="text" name="deadline" class="form-control _special" placeholder="Установите дедлайн..." />
+                                <input type="text" name="deadline" class="form-control _special" placeholder="Установите дедлайн..." />
                             </div>
-                           
+
                         </div>
                         <button type="submit" class="btn btn-primary" id="save">Сохранить</button>
                     </form>
