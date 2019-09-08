@@ -1,0 +1,61 @@
+{-# STDLIB_VERSION 3 #-}
+{-# CONTENT_TYPE DAPP #-}
+{-# SCRIPT_TYPE ACCOUNT #-}
+
+let nullHome = "0"
+
+@Callable(i)
+func sethome(homeId: String) = {
+    let sellerBase58 = i.caller.bytes.toBase58String()
+    let write = WriteSet([
+        DataEntry(sellerBase58, homeId),
+        DataEntry("sethomeLog", sellerBase58 + " -> " + homeId)
+    ])
+    ScriptResult(write, TransferSet([]))
+}
+
+@Callable(i)
+func main(homeId: String, address: String) = {
+    let pmt = extract(i.payment)
+    if (isDefined(pmt.assetId)) then {
+        throw("payment is only waves")
+    } else {
+        let buerBase58 = i.caller.bytes.toBase58String()
+        match address.addressFromString() {
+            case addressObject: Address => {
+                match getString(this, address) {
+                    case home: String => {
+                        if (home == "0") then {
+                            throw("saller homeless")
+                        } else {
+                            if (home == homeId) then {
+                                let transfer = TransferSet([
+                                    ScriptTransfer(addressObject, pmt.amount, pmt.assetId)
+                                ])
+                                let write = WriteSet([
+                                    DataEntry(address, nullHome),
+                                    DataEntry(buerBase58, homeId),
+                                    DataEntry("mainLog", address + " -> " + buerBase58)
+                                ])
+                                ScriptResult(write, transfer)
+                            } else {
+                                throw("saller doesn't own a house: " + homeId)
+                            }
+                        }
+                    }
+                    case _ => {
+                        throw("saller homeless")
+                    }
+                }
+           }
+           case _ => {
+               throw("Invalid address")
+           }
+        }
+    }
+}
+
+# @Verifier(tx)
+# func verify() = false
+
+
