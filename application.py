@@ -17,8 +17,7 @@ import pywaves as pw
 
 # app = Flask(__name__) # to make the app run without any
 app = Flask(__name__)
-
-
+app.secret_key = os.urandom(12)
 # SERV
 @app.route('/', methods=['GET', 'POST'])
 def server_work():
@@ -99,6 +98,5 @@ def Sigunp():
 
 
 if __name__ == "__main__":
-    app.secret_key = os.urandom(12)
     app.run(debug=True, port=5000)
 
