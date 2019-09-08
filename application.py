@@ -41,7 +41,11 @@ def index_work():
     if request.method == 'POST':
         pass
     return render_template('index.html')
-
+@app.route('/new', methods=['GET', 'POST'])
+def new():
+    if request.method == 'POST':
+        pass
+    return render_template('new.html')
 @app.route('/waves', methods=['GET', 'POST'])
 def waves():
     if request.method == 'POST':

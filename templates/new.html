@@ -41,46 +41,49 @@ and open the template in the editor.
             </nav>
         </header>
         <div class="container">
-            <div class="row">
-                <div class="col-8">
-                    <div class="jumbotron">
-                        <h1 class="display-4">Операции</h1>
-                        <div class="container">
-                            <a href="/new">
-                                <div class="deal">
-                                    <span><i class="fa fa-plus"></i> создать новую</span>
-                                </div>
-                            </a>
+            <div class="container-fuild">
+                <div class="jumbotron">
+                    <form class="form" method="post" id="deal-from">
+                        <p>
+                            Сделка 1
+                            <br>
+                            Введите название...
+                        </p>
+                        <div class="form-group">
+                            <textarea placeholder="Введите условия договора..." class="form-control _special" name="description"></textarea>
                         </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <ul class="deals-list">
-                        <li class="deal-item">
-                            <div class="">
-                                <h3 class="turned">В процессе</h3>
-                                <div class="pending">
-                                    Сделка 1<br>
-                                    Покупка квартиры
-                                </div>
+                        <div class="form-row">
+                            <div class="img_box">
+                                <img class="_img" src="{{ url_for('static', filename='img/coin.png') }}">
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" name="amount" class="form-control _special" placeholder="Введите сумму договора..." />
+                            </div>
+                            
 
-                        </li>
-                        <li class="deal-item empty">
-                            <div class="vertical">
-                                пусто
+                        </div>
+                        <div class="form-row">
+                            <div class="img_box">
+                                <img class="_img" src="{{ url_for('static', filename='img/user2.png') }}">
                             </div>
-                        </li>
-                        <li class="deal-item empty">
-                            <div class="vertical">
-                                пусто
+                            <div class="col-md-6 mb-3">
+                                <input type="text" name="receiver" class="form-control _special" placeholder="Введите имя контрагента..." />
                             </div>
-                        </li>
-
-                    </ul>
+                            
+                        </div>
+                        <div class="form-row">
+                            <div class="img_box">
+                                <img class="_img" src="{{ url_for('static', filename='img/clock-circular-outline.png') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                 <input type="text" name="deadline" class="form-control _special" placeholder="Установите дедлайн..." />
+                            </div>
+                           
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="save">Сохранить</button>
+                    </form>
                 </div>
             </div>
-
         </div>
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
