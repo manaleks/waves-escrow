@@ -7,25 +7,17 @@ from flask import request, session, abort
 from flask import redirect
 from flask import render_template
 from flask import jsonify
-from flaskext.mysql import MySQL
-import hashlib
+
 
 import requests
 
 
 import pywaves as pw
 
-mysql = MySQL()
 
 # app = Flask(__name__) # to make the app run without any
 app = Flask(__name__)
 
-# MySQL Configuration
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'mysql'
-app.config['MYSQL_DATABASE_DB'] = 'EmpData'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-mysql.init_app(app)
 
 # SERV
 @app.route('/', methods=['GET', 'POST'])
