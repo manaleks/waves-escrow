@@ -55,7 +55,6 @@ deals = [{
     }
 ]
 nextId = 0
-userId = 0
 
 def verifySessionId():
     global nextId
@@ -68,6 +67,12 @@ def verifySessionId():
         print ("using already set userid[" + str(session['userId']) + "]")
     sessionId = session.get('userId', None)
     return sessionId
+def getUserById(id):
+    global users
+    for user in users:
+        if user['id'] == verifySessionId():
+            return user
+
 
 @app.route('/home_owner', methods=['GET', 'POST'])
 def home_owner():
@@ -86,17 +91,20 @@ def server_work():
         return render_template('index.html', deals = deals)
     else:
         return render_template('signup.html')
+
 @app.route('/home', methods=['GET', 'POST'])
 def index_work():
     global deals
     if request.method == 'POST':
         pass
     return render_template('index.html', deals = deals)
+
 @app.route('/new', methods=['GET', 'POST'])
 def new():
     if request.method == 'POST':
         pass
     return render_template('new.html')
+
 
 @app.route('/viewdeal/<int:dealid>', methods=['GET', 'POST'])
 def viewdeal(dealid):
@@ -105,14 +113,13 @@ def viewdeal(dealid):
         pass
     for deal in deals:
         if dealid == deal['id']:
-            return render_template('viewdeal.html', deal = deal)
+            return render_template('viewdeal.html', deal = deal, user = getUserById(verifySessionId()), address = getUserById(deal['sender'])['publicKey'])
     else:
         return not_found()
 
 #Сделка ... 
 @app.route('/newdeal', methods=['POST'])
 def newdeal():
-    global userId
     global deals
     description = request.form['description']
     amount = request.form['amount']
@@ -120,7 +127,7 @@ def newdeal():
     deadline = request.form['deadline']
     deals.append({
     'id': len(deals) + 1,
-    'sender': userId, 
+    'sender': verifySessionId(), 
     'receiver': receiver,
     'deadline':deadline,
     'description': description,
@@ -180,7 +187,6 @@ def api_deals(dealid):
 
 @app.route("/signin", methods = ['POST'])
 def Authenticate():
-    global userId
     global users
     email = request.form['email']
     password = request.form['password']
@@ -190,31 +196,27 @@ def Authenticate():
     for user in users:
         if user['email'] == email and user['password'] == password:
             session['user'] = user
-            userId = user['id']
             return jsonify({'success':1})
     return jsonify({'success':0, 'message': "Failed"})
 
 @app.route("/signup", methods = ['POST'])
 def Sigunp():
     global users
-    global userId
     firstname = request.form['firstname']
     lastname = request.form['lastname']
     email = request.form['email']
     password = request.form['password']
     address = request.form['address']
-    userId = len(users) + 1
     users.append({
-        'id': userId,
+        'id': verifySessionId(),
     'firstname': firstname, 
     'lastname': lastname, 
     'email': email, 
     'password': password, 
     'publicKey': address
     })
-    user_Id = verifySessionId()
-    print("User id[" + str(userId) + "]")
-    session['user'] = '{id : 1}'
+    print("User id[" + str(verifySessionId()) + "]")
+    session['user'] = users[verifySessionId()]
     return jsonify({'success':1})
 
 
