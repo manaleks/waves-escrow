@@ -106,6 +106,8 @@ def index_work():
         sender = getUserById(deal['sender'])
         if sender is not None :
             deal['sender_name'] = sender['firstname'] + ' ' + sender['lastname']
+        else:
+            deal['sender_name'] = "Sender " + deal['sender']
         _deals.append(deal)
     return render_template('index.html', deals = _deals, user = getUserById(verifySessionId()))
 
