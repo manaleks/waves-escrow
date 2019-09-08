@@ -88,7 +88,11 @@ def server_work():
     if request.method == 'POST':
         pass
     if 'user' in session.keys():
-        return render_template('index.html', deals = deals)
+        for deal in deals:
+            sender = getUserById(deal['sender'])
+            deal['sender_name'] = sender['firstname'] + ' ' + sender['lastname']
+            _deals.append(deal)
+        return render_template('index.html', deals = _deals)
     else:
         return render_template('signup.html')
 
@@ -97,7 +101,12 @@ def index_work():
     global deals
     if request.method == 'POST':
         pass
-    return render_template('index.html', deals = deals)
+    _deals = []
+    for deal in deals:
+        sender = getUserById(deal['sender'])
+        deal['sender_name'] = sender['firstname'] + ' ' + sender['lastname']
+        _deals.append(deal)
+    return render_template('index.html', deals = _deals)
 
 @app.route('/new', methods=['GET', 'POST'])
 def new():
