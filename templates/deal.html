@@ -43,50 +43,39 @@ and open the template in the editor.
         <div class="container">
             <div class="container-fuild">
                 <div class="jumbotron">
-                    <form class="form" method="post" id="deal">
+                    <p>
+                        Сделка 1
+                        <br>
+                        Введите название...
+                    </p>
+                    <div class="reader">
                         <p>
-                            Сделка 1
-                            <br>
-                            Введите название...
-                        </p>
-                        <div class="form-group">
-                            <textarea placeholder="Введите условия договора..." class="form-control _special" name="description"></textarea>
-                        </div>
-                        <div class="form-row">
-                            <div class="img_box">
-                                <img class="_img" src="{{ url_for('static', filename='img/coin.png') }}">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <input type="text" name="amount" class="form-control _special" placeholder="Введите сумму договора..." />
-                            </div>
-                            
+                            Договор купли-продажи
 
-                        </div>
-                        <div class="form-row">
-                            <div class="img_box">
-                                <img class="_img" src="{{ url_for('static', filename='img/user2.png') }}">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <input type="text" name="receiver" class="form-control _special" placeholder="Введите имя контрагента..." />
-                            </div>
-                            
-                        </div>
-                        <div class="form-row">
-                            <div class="img_box">
-                                <img class="_img" src="{{ url_for('static', filename='img/clock-circular-outline.png') }}">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                 <input type="text" name="deadline" class="form-control _special" placeholder="Установите дедлайн..." />
-                            </div>
-                           
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="save">Сохранить</button>
-                    </form>
+                            Сделка 1
+
+                            Продажа квартиры
+
+                            Предмет договора
+
+                            Продавец обязуется произвести и передать, а Покупатель принять и оплатить товары в количестве и ассортименте,
+                            указанном Продавцом в Заказе.
+
+                            Заказ, согласовывается сторонами, и оформляется в виде Приложений к настоящему Договору. Согласование
+                            заказа допускается посредством факсимильной, почтовой, электронной связи. В Заказе указывается модель, количество,
+                            размер, цветовая гамма, цена изделия и сроки поставки. Заказ является неотъемлемой частью настоящего Договора.
+
+                            Цена товара устанавливается по согласованию сторон, и указанна в рублях.
+
+                            Обязательства сторон
+
+                            Продавец обязуется передать Покупателю товар в соответствии с Заказом.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </body>
 </html>

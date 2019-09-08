@@ -66,6 +66,23 @@ and open the template in the editor.
                             </div>
 
                         </li>
+                        {% for deal in deals %} 
+
+                        <li class="deal-item">
+                            <a href="/viewdeal/{{ deal.id }}">
+                                <div class="">
+                                    <h3 class="turned">В процессе</h3>
+                                    <div class="pending">
+                                        {{ deal.sender }}<br>
+                                        {{ deal.amount }} 
+                                    </div>
+                                </div>
+                            </a>
+
+
+                        </li>
+
+                        {% endfor %}
                         <li class="deal-item empty">
                             <div class="vertical">
                                 пусто
@@ -85,7 +102,7 @@ and open the template in the editor.
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
         <script>
-            var deals = "";
+var deals = "";
         </script>
     </body>
 </html>
