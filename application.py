@@ -20,39 +20,9 @@ app = Flask(__name__)
 app.secret_key = os.urandom(12)
 app.config['SESSION_TYPE'] = 'filesystem'
 
-users = [{'id': 1,
-    'firstname': "Default", 
-    'lastname': "User", 
-    'email': "mail@user.com", 
-    'password': "pass", 
-    'publicKey': "09HGUhhkjjk98098"
-    },
-    {'id': 2,
-    'firstname': "Default2", 
-    'lastname': "User2", 
-    'email': "mail2@user.com", 
-    'password': "pass", 
-    'publicKey': "09HGUhhkjjk98098"
-    },
+users = [
 ]
-deals = [{
-    'id': 1,
-    'sender': 1, 
-    'receiver': 2,
-    'deadline':'name..',
-    'description':'condition',
-    'amount':10000000, 
-    'status': 1
-    },
-    {
-    'id': 2,
-    'sender': 1, 
-    'receiver': 2,
-    'deadline':'name..',
-    'description':'condition',
-    'amount':10000000, 
-    'status': 1
-    }
+deals = [
 ]
 nextId = len(users) + 1
 
@@ -88,9 +58,13 @@ def server_work():
     if request.method == 'POST':
         pass
     if 'user' in session.keys():
+        _deals = []
         for deal in deals:
             sender = getUserById(deal['sender'])
-            deal['sender_name'] = sender['firstname'] + ' ' + sender['lastname']
+            if sender is not None :
+                deal['sender_name'] = sender['firstname'] + ' ' + sender['lastname']
+            else:
+                deal['sender_name'] = "Sender " + str(deal['sender'])
             _deals.append(deal)
         return render_template('index.html', deals = _deals, user = getUserById(verifySessionId()))
     else:
