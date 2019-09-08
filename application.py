@@ -18,6 +18,7 @@ import pywaves as pw
 # app = Flask(__name__) # to make the app run without any
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
+app.config['SESSION_TYPE'] = 'filesystem'
 # SERV
 @app.route('/', methods=['GET', 'POST'])
 def server_work():
@@ -37,6 +38,17 @@ def new():
     if request.method == 'POST':
         pass
     return render_template('new.html')
+
+#Сделка ... 
+@app.route('/newdeal', methods=['POST'])
+def newdeal():
+    description = request.args.get('description')
+    amount = request.args.get('amount')
+    receiver = request.args.get('receiver')
+    deadline = request.args.get('deadline')
+    deals['user'] = '{id : 1}'
+    return jsonify({'success':1})
+
 @app.route('/waves', methods=['GET', 'POST'])
 def waves():
     if request.method == 'POST':

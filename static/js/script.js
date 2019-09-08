@@ -77,4 +77,19 @@ $(() => {
                 });
         event.preventDefault();
     });
+    $('#deal').submit(event => {
+        $.ajax({
+            data: $('#deal').serialize(),
+            type: 'POST',
+            url: '/newdeal',
+            dataType: 'json'
+        })
+                .done((data) => {
+                    console.log(data);
+                    if (data.success == "1") {
+                        window.location = "/home";
+                    }
+                });
+        event.preventDefault();
+    });
 })
