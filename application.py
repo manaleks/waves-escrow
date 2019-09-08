@@ -104,7 +104,8 @@ def index_work():
     _deals = []
     for deal in deals:
         sender = getUserById(deal['sender'])
-        deal['sender_name'] = sender['firstname'] + ' ' + sender['lastname']
+        if sender is not None :
+            deal['sender_name'] = sender['firstname'] + ' ' + sender['lastname']
         _deals.append(deal)
     return render_template('index.html', deals = _deals, user = getUserById(verifySessionId()))
 
